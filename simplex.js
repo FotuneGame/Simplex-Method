@@ -473,7 +473,11 @@ class SimplexSolver {
             console.log(`  ${k} = ${v.toString()}`);
           }
         }
-        console.log(`Максимальное значение целевой функции: q = ${sol.q.toString()}`);
+        const isMin = (this.problem.direction || 'max') === 'min';
+        const qTitle = isMin ? 'Минимальное значение' : 'Максимальное значение';
+        const qLabel = isMin ? 'q_min' : 'q_max';
+        const qVal = isMin ? sol.q.neg() : sol.q;
+        console.log(`${qTitle} целевой функции: ${qLabel} = ${qVal.toString()}`);
         console.log('======================================================================\n');
         return sol;
       }

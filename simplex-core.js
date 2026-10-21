@@ -487,8 +487,23 @@ class SimplexSolver {
     this.allVars = [...problem.allVars];
     this.integerVars = problem.integerVars ? [...problem.integerVars] : [];
     this.nonlinearCheck = problem.nonlinearCheck || null;
+    this.direction = problem.direction || 'max';
+    this.origObjective = problem.origObjective || null;
     this.stepCount = 0;
     this.stepsHistory = [];
+  }
+
+  computeRealQ(solution) {
+    if (this.origObjective) {
+      let sum = new Fraction(0);
+      for (let j = 0; j < this.origObjective.length; j++) {
+        const c = new Fraction(this.origObjective[j]);
+        const x = solution.variables[`x${j + 1}`] || new Fraction(0);
+        sum = sum.add(c.mul(x));
+      }
+      return sum;
+    }
+    return this.direction === 'min' ? solution.q.neg() : solution.q;
   }
 
   solve() {
@@ -503,6 +518,9 @@ class SimplexSolver {
 
     while (this.stepCount < maxIterations) {
       this.stepCount++;
+      const rawSolution = currentTable.getSolution(this.allVars);
+      const realQ = this.computeRealQ(rawSolution);
+
       const currentStepRecord = {
         stepNumber: this.stepCount,
         tableIndex: currentTable.tableIndex,
@@ -510,7 +528,9 @@ class SimplexSolver {
         freeVars: [...currentTable.freeVars],
         matrix: currentTable.matrix.map(r => r.map(c => new Fraction(c))),
         algebraicEquations: currentTable.getAlgebraicEquations(),
-        solution: currentTable.getSolution(this.allVars),
+        solution: rawSolution,
+        realQ,
+        direction: this.direction,
         isFeasible: currentTable.isFeasible(),
         isOptimal: currentTable.isOptimal(),
         isFinal: false
@@ -619,9 +639,11 @@ class SimplexSolver {
 
         return {
           status: 'optimal',
+          direction: this.direction,
           steps: this.stepsHistory,
           solution: currentStepRecord.solution,
-          q: currentStepRecord.solution.q,
+          q: currentStepRecord.realQ,
+          qCanon: currentStepRecord.solution.q,
           nonlinearResult: currentStepRecord.nonlinearResult || null
         };
       }
@@ -852,6 +874,7 @@ function canonicalizeProblem({ objective, direction = 'max', constraints, intege
     matrix,
     integerVars: integerVars || [],
     direction,
+    origObjective: [...objective],
     nonlinearCheck
   };
 }

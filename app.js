@@ -288,12 +288,18 @@
       constrHtml += `<div>${terms} ${opSign} ${c.rhs}</div>`;
     });
 
+    const isMin = formData.direction === 'min';
+    const minNote = isMin 
+      ? `<div><em>(Для минимизации выполняется переход к задаче максимизации: q' = &minus;q &rarr; max)</em></div>` 
+      : '';
+
     canonicalInfoBox.innerHTML = `
       <div class="canonical-header">
         <strong>Канонический вид</strong> (базис: ${canon.basicVars.join(', ')}):
       </div>
       <div class="math-block">
         <div><strong>q = ${objTerms.join(' + ')} &rarr; ${formData.direction}</strong></div>
+        ${minNote}
         ${constrHtml}
         <div>x<sub>j</sub> &ge; 0${formData.integerVars.length > 0 ? ', переменные целые' : ''}</div>
       </div>
@@ -319,9 +325,11 @@
         `;
       }
 
+      const qLabel = isMin ? 'q<sub>min</sub>' : 'q<sub>max</sub>';
+
       varsGridHtml += `
         <div class="result-item result-q">
-          <span class="item-label">q<sub>max</sub></span>
+          <span class="item-label">${qLabel}</span>
           <span class="item-value">${result.q.toString()}</span>
         </div>
       `;
@@ -348,7 +356,7 @@
       }
 
       finalResultBox.innerHTML = `
-        <div class="result-title">Оптимальное решение найдено</div>
+        <div class="result-title">Оптимальное решение найдено (${isMin ? 'минимум' : 'максимум'})</div>
         <div class="result-grid">${varsGridHtml}</div>
         ${finalNote}
       `;
@@ -467,7 +475,7 @@
           ${cutTag}
         </div>
         <div class="step-meta">
-          <span class="q-val">q = ${step.solution.q.toString()}</span>
+          <span class="q-val">q = ${(step.realQ || step.solution.q).toString()}</span>
           <span class="toggle-icon">&#9660;</span>
         </div>
       </div>

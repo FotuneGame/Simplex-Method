@@ -50,17 +50,31 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(PORT, () => {
-  const url = `http://localhost:${PORT}`;
-  console.log('======================================================================');
-  console.log('       СИМПЛЕКС-МЕТОД — ВЕБ-ИНТЕРФЕЙС УСПЕШНО ЗАПУЩЕН!                ');
-  console.log('======================================================================');
-  console.log(`  🌐 Откройте в браузере: \x1b[36m${url}\x1b[0m`);
-  console.log('  💡 Для остановки нажмите Ctrl+C');
-  console.log('======================================================================\n');
+function startServer(port) {
+  server.listen(port, () => {
+    const url = `http://localhost:${port}`;
+    console.log('======================================================================');
+    console.log('       СИМПЛЕКС-МЕТОД — ВЕБ-ИНТЕРФЕЙС УСПЕШНО ЗАПУЩЕН!                ');
+    console.log('======================================================================');
+    console.log(`  🌐 Откройте в браузере: \x1b[36m${url}\x1b[0m`);
+    console.log('  💡 Для остановки нажмите Ctrl+C');
+    console.log('======================================================================\n');
 
-  // Автоматическое открытие в браузере по умолчанию на Windows
-  if (process.platform === 'win32') {
-    exec(`start ${url}`);
+    // Автоматическое открытие в браузере по умолчанию на Windows
+    if (process.platform === 'win32') {
+      exec(`start ${url}`);
+    }
+  });
+}
+
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    const nextPort = PORT + 1;
+    console.log(`⚠️  Порт ${PORT} уже занят другим процессом. Переключаемся на порт ${nextPort}...`);
+    startServer(nextPort);
+  } else {
+    console.error('Ошибка сервера:', err);
   }
 });
+
+startServer(PORT);
