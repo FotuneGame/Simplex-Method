@@ -1,0 +1,653 @@
+/* ==========================================================================
+   CSS стили для проекта «simpleks» — Компактная версия
+   ========================================================================== */
+
+:root {
+  --bg: #f8fafc;
+  --card-bg: #ffffff;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #eff6ff;
+  --success: #16a34a;
+  --danger: #dc2626;
+  --warning: #d97706;
+  --pivot-bg: #fef08a;
+  --pivot-cell: #fde047;
+  --radius: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.45;
+  padding: 20px 14px;
+}
+
+.app-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Шапка */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.header h1 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.presets-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.presets-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-right: 2px;
+}
+
+.btn-preset {
+  font-size: 12px;
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--text);
+  transition: all 0.15s;
+}
+
+.btn-preset:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.btn-preset.active {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.btn-clear {
+  color: var(--text-muted);
+}
+
+/* Карточки */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  margin-bottom: 18px;
+}
+
+.form-row {
+  margin-bottom: 14px;
+}
+
+.math-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.objective-inputs-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.formula-q {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--primary);
+}
+
+.var-inputs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.var-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.var-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.plus {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-left: 2px;
+}
+
+.arrow {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.vars-toolbar {
+  display: inline-flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.btn-tool {
+  font-size: 11px;
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  background: #f1f5f9;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--text);
+}
+.btn-tool:hover {
+  background: #e2e8f0;
+}
+
+.form-control {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: white;
+  color: var(--text);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.obj-coeff, .constr-coeff {
+  width: 54px;
+  text-align: center;
+}
+
+.constraint-rhs {
+  width: 64px;
+  text-align: center;
+}
+
+.select-direction {
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.section-title-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.constraints-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.constraint-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 6px 10px;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.constraint-index {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  width: 20px;
+}
+
+.btn-remove-row {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0 4px;
+}
+.btn-remove-row:hover {
+  color: var(--danger);
+}
+
+.options-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+}
+
+.checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.nonlinear-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.small-label {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.input-sm {
+  width: 170px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.btn-submit {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 9px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-submit:hover {
+  background: var(--primary-hover);
+}
+
+/* Блок решения */
+.solution-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.solution-header h2 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.btn-text {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: var(--primary);
+  cursor: pointer;
+  padding: 0 4px;
+}
+.btn-text:hover {
+  text-decoration: underline;
+}
+
+.canonical-box {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  font-size: 13px;
+}
+
+.canonical-header {
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.math-block {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Этапы */
+.steps-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.step-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: white;
+  overflow: hidden;
+}
+
+.step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: #f8fafc;
+  cursor: pointer;
+  user-select: none;
+}
+
+.step-card.open .step-header {
+  border-bottom: 1px solid var(--border);
+}
+
+.step-title-area {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.step-num {
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--primary);
+}
+
+.step-name {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.tag-ok { background: #dcfce7; color: #15803d; }
+.tag-warn { background: #fef3c7; color: #b45309; }
+.tag-err { background: #fee2e2; color: #b91c1c; }
+
+.step-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.q-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.toggle-icon {
+  font-size: 10px;
+  color: var(--text-muted);
+  transition: transform 0.2s;
+}
+
+.step-card.open .toggle-icon {
+  transform: rotate(180deg);
+}
+
+.step-body {
+  display: none;
+  padding: 12px 14px;
+}
+
+.step-card.open .step-body {
+  display: block;
+}
+
+.equations-block {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+}
+
+.solution-line {
+  margin-top: 4px;
+  font-weight: 600;
+  color: var(--primary);
+  border-top: 1px dashed var(--border);
+  padding-top: 4px;
+}
+
+/* Симплекс таблица */
+.table-wrapper {
+  overflow-x: auto;
+  margin-bottom: 10px;
+}
+
+.simplex-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+}
+
+.simplex-table th, .simplex-table td {
+  padding: 6px 10px;
+  border: 1px solid #cbd5e1;
+  text-align: center;
+}
+
+.simplex-table th {
+  background: #f1f5f9;
+  font-weight: 600;
+}
+
+.simplex-table td.row-header {
+  background: #f8fafc;
+  font-weight: 600;
+}
+
+.simplex-table td.col-pivot, .simplex-table th.col-pivot {
+  background-color: var(--pivot-bg);
+}
+
+.simplex-table tr.row-pivot td {
+  background-color: var(--pivot-bg);
+}
+
+.simplex-table td.pivot-cell {
+  background-color: var(--pivot-cell) !important;
+  font-weight: 700;
+}
+
+.cell-val {
+  display: block;
+}
+
+.cell-star {
+  display: block;
+  font-size: 11px;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+/* Блок перехода */
+.pivot-info-box {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.pivot-main-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.ratios-line {
+  margin-top: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-muted);
+}
+
+.sub-label {
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.gomory-badge {
+  background: #fefce8;
+  border: 1px solid #fef08a;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #713f12;
+  margin-top: 8px;
+}
+
+.dantzig-badge {
+  background: #fdf2f8;
+  border: 1px solid #fbcfe8;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #831843;
+  margin-top: 8px;
+}
+
+.nonlinear-check-step {
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.nonlinear-check-step.ok {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+.nonlinear-check-step.err {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+/* Итог */
+.final-result-box {
+  margin-top: 16px;
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+
+.result-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #15803d;
+  margin-bottom: 8px;
+}
+
+.result-grid {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.result-item {
+  background: white;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.result-item .item-label {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.result-item .item-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: #15803d;
+}
+
+.result-q {
+  border-color: #93c5fd;
+  background: #eff6ff;
+}
+
+.result-q .item-value {
+  color: var(--primary);
+}
+
+.result-check {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: #ffffff;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #166534;
+}
+
+.result-check.failed {
+  border-color: #fecaca;
+  color: #991b1b;
+  background: #fef2f2;
+}

@@ -1,0 +1,23 @@
+{
+  "name": "simpleks-tpr",
+  "version": "1.0.0",
+  "description": "Поэтапное решение задач симплекс-методом с веб-интерфейсом по методичке ТПР (разд. 3.2, 3.3, 3.5.7)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "web": "node server.js",
+    "cli": "node simplex.js",
+    "variant39": "node simplex.js",
+    "example14": "node simplex.js --example14"
+  },
+  "keywords": [
+    "tpr",
+    "simplex",
+    "linear-programming",
+    "gomory",
+    "optimization",
+    "simplex-method"
+  ],
+  "author": "",
+  "license": "ISC"
+}

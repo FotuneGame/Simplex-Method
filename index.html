@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Симплекс-метод — Решение задач ЛП</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Шапка -->
+    <header class="header">
+      <div class="header-content">
+        <h1>Симплекс-метод</h1>
+        <p class="subtitle">Пошаговое решение задач линейного и целочисленного программирования</p>
+      </div>
+      <!-- Кнопки пресетов -->
+      <div class="presets-bar">
+        <span class="presets-label">Примеры:</span>
+        <button type="button" class="btn btn-preset active" id="btnPreset39">Вариант 39</button>
+        <button type="button" class="btn btn-preset" id="btnPreset14">Пример 14</button>
+        <button type="button" class="btn btn-preset" id="btnPreset15">Пример 15 (Гомори)</button>
+        <button type="button" class="btn btn-preset btn-clear" id="btnClearForm">Очистить</button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <!-- Конструктор задачи -->
+      <section class="card editor-card">
+        <form id="simplexForm">
+          <!-- Целевая функция -->
+          <div class="form-row objective-row">
+            <span class="math-label">Целевая функция:</span>
+            <div class="objective-inputs-wrap">
+              <span class="formula-q">q =</span>
+              <div class="var-inputs" id="objectiveVarsContainer"></div>
+              <span class="arrow">&rarr;</span>
+              <select id="directionSelect" class="form-control select-direction">
+                <option value="max" selected>max</option>
+                <option value="min">min</option>
+              </select>
+            </div>
+            <div class="vars-toolbar">
+              <button type="button" class="btn btn-tool" id="btnAddVar" title="Добавить переменную">+ x</button>
+              <button type="button" class="btn btn-tool" id="btnRemoveVar" title="Удалить переменную">&minus; x</button>
+            </div>
+          </div>
+
+          <!-- Ограничения -->
+          <div class="form-row constraints-row">
+            <div class="section-title-wrap">
+              <span class="math-label">Ограничения:</span>
+              <button type="button" class="btn btn-tool" id="btnAddConstraint">+ Ограничение</button>
+            </div>
+            <div class="constraints-list" id="constraintsList"></div>
+          </div>
+
+          <!-- Опции -->
+          <div class="form-row options-row">
+            <label class="checkbox-label">
+              <input type="checkbox" id="integerCheck" checked>
+              <span>Целочисленные переменные (метод Гомори)</span>
+            </label>
+            <div class="nonlinear-wrap">
+              <span class="small-label">Нелинейное условие:</span>
+              <input type="text" id="nonlinearExpr" class="form-control input-sm" placeholder="например: x2 * lg(x1) > 1 или sin(x1) + cos(x2) <= 1" value="x2 * lg(x1) > 1">
+            </div>
+          </div>
+
+          <!-- Кнопка запуска -->
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-submit" id="btnSolve">
+              Рассчитать решение
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Блок решения -->
+      <section class="card solution-card" id="solutionCard" style="display: none;">
+        <div class="solution-header">
+          <h2>Ход решения</h2>
+          <div class="solution-actions">
+            <button type="button" class="btn btn-text" id="btnExpandAll">Развернуть все</button>
+            <button type="button" class="btn btn-text" id="btnCollapseAll">Свернуть все</button>
+          </div>
+        </div>
+
+        <!-- Постановка задачи в каноническом виде -->
+        <div class="canonical-box" id="canonicalInfoBox"></div>
+
+        <!-- Шаги решения -->
+        <div class="steps-container" id="stepsContainer"></div>
+
+        <!-- Итоговый результат -->
+        <div class="final-result-box" id="finalResultBox"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="simplex-core.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
