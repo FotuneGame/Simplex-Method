@@ -272,6 +272,18 @@
     }
   }
 
+  function sortVarNames(names) {
+    return [...names].sort((a, b) => {
+      const numA = parseInt(a.replace(/\D/g, ''), 10) || 0;
+      const numB = parseInt(b.replace(/\D/g, ''), 10) || 0;
+      return numA - numB;
+    });
+  }
+
+  function formatVarSubscript(vName) {
+    return vName.replace(/(\d+)/, '<sub>$1</sub>');
+  }
+
   function displaySolution(formData, canon, result) {
     solutionCard.style.display = 'block';
 
@@ -313,13 +325,17 @@
 
     // 3. Итог
     if (result.status === 'optimal') {
+      const varKeys = sortVarNames(Object.keys(result.solution.variables));
       let varsGridHtml = '';
-      for (let j = 1; j <= formData.objective.length; j++) {
-        const vName = `x${j}`;
+      const vectorVals = [];
+
+      for (const vName of varKeys) {
         const val = result.solution.variables[vName] || new window.Fraction(0);
+        vectorVals.push(val.toString());
+        const labelHtml = formatVarSubscript(vName);
         varsGridHtml += `
           <div class="result-item">
-            <span class="item-label">${vName}</span>
+            <span class="item-label">${labelHtml}</span>
             <span class="item-value">${val.toString()}</span>
           </div>
         `;
@@ -357,6 +373,7 @@
 
       finalResultBox.innerHTML = `
         <div class="result-title">Оптимальное решение найдено (${isMin ? 'минимум' : 'максимум'})</div>
+        <div class="result-vector">Оптимальный план: <strong>X* = (${vectorVals.join('; ')})</strong></div>
         <div class="result-grid">${varsGridHtml}</div>
         ${finalNote}
       `;
@@ -480,10 +497,10 @@
         </div>
       </div>
       <div class="step-body">
-        <!-- Формулы разложения и базис -->
+        <!-- Формулы разложения и план -->
         <div class="math-block equations-block">
           ${step.algebraicEquations.map(eq => `<div>${eq.name} = ${eq.expr}</div>`).join('')}
-          <div class="solution-line">Базис: ${Object.entries(step.solution.variables).map(([k, v]) => `${k}=${v.toString()}`).join(', ')}</div>
+          <div class="solution-line">План: ${sortVarNames(Object.keys(step.solution.variables)).map(k => `${formatVarSubscript(k)}=${step.solution.variables[k].toString()}`).join(', ')}</div>
         </div>
 
         <!-- Симплекс-таблица -->
