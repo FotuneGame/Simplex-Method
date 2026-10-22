@@ -882,7 +882,7 @@ function canonicalizeProblem({ objective, direction = 'max', constraints, intege
 // Предустановленные примеры для мгновенной загрузки
 const PRESETS = {
   variant39: {
-    name: 'Вариант 39 (Задание с фото)',
+    name: 'Свой пример',
     direction: 'max',
     objective: [1, 3],
     constraints: [
